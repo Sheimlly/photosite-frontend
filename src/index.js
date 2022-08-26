@@ -1,6 +1,8 @@
 // Components
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+// import { getToken } from './constants/token'
+import Session from 'react-session-api'
 
 // Pages
 import Navbar from "./pages/navbar";
@@ -9,9 +11,12 @@ import Portfolio from "./pages/portfolio";
 import Offer from "./pages/offer";
 import AboutMe from "./pages/about-me";
 import Contact from "./pages/contact";
-import Admin from "./pages/admin";
 import NoPage from "./pages/404";
 import Footer from "./pages/footer";
+
+// Admin
+import Admin from "./pages/admin/admin";
+import Panel from "./pages/admin/panel";
 
 // Styles
 import './styles/global.scss'
@@ -19,6 +24,8 @@ import './styles/footer.scss'
 
 
 export default function App() {
+  const token = localStorage.getItem("token");
+
   return (
     <BrowserRouter>
       <Routes>
@@ -28,7 +35,10 @@ export default function App() {
           <Route path="oferta" element={<Offer />} />
           <Route path="o-mnie" element={<AboutMe />} />
           <Route path="kontakt" element={<Contact />} />
-          <Route path="admin" element={<Admin />} />
+          <Route path="admin" element={ token ? <Navigate to="/admin-panel" /> : <Admin />} />
+          <Route path="admin-panel">
+            <Route index element={ token ? <Panel /> : <Navigate to="/admin" /> } />
+          </Route>
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

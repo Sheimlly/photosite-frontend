@@ -1,5 +1,8 @@
 import Carousel from 'react-bootstrap/Carousel';
-import { useState } from "react";
+import { React, useState } from "react";
+import axios from "axios";
+
+import { API_URL } from "../constants";
 
 import '../styles/frontpage.scss'
 import '../styles/contact-form.scss'
@@ -78,7 +81,7 @@ const FrontpageOffer = () => {
         <>
             <section className='offer my-3'>
                 <div className='container'>
-                    <div className='row justify-content-between'>
+                    <div className='row'>
                         <h2 className='section-title'>Co oferuję?</h2>
 
                         <div className='col-4 offer-block px-0'>
@@ -189,8 +192,7 @@ const ContactMe = () => {
         name: "",
         email: "",
         phone: "",
-        message: "",
-        termin: ""
+        message: ""
     });
 
     const updateContactForm = (value, target) => {
@@ -199,10 +201,25 @@ const ContactMe = () => {
         })
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        alert(`The name you entered was: ${contactForm.name} ${contactForm.phone} ${contactForm.email} ${contactForm.message}`)
-    }
+    const handleSubmit = (e) => {
+        var current = new Date();
+        var date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+        console.log(date);
+
+        e.preventDefault();
+        axios.post(`${API_URL}/messages/add/`, {
+            name: contactForm.name,
+            email: contactForm.email,
+            phone: contactForm.phone ? contactForm.phone : 0,
+            message: contactForm.message
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    };
 
     return(
         <>
@@ -212,39 +229,51 @@ const ContactMe = () => {
                         <h2 className='section-title'>Skontaktuj się ze mną!</h2>
 
                         <form onSubmit={handleSubmit} className="contact-form">
-                            <input
-                                className='contact-form__input contact-form__input-name'
-                                type="text"
-                                placeholder='Imię*'
-                                value={contactForm.name}
-                                onChange={(e) => updateContactForm(e.target.value, "name") }
-                                required
-                            />
-                            <input
-                                className='contact-form__input contact-form__input-email'
-                                type="email"
-                                placeholder='E-mai*'
-                                value={contactForm.email}
-                                onChange={(e) => updateContactForm(e.target.value, "email") }
-                                required
-                            />
-                            <input className='contact-form__input contact-form__input-phone'
-                                type="number"
-                                placeholder='Numer telefonu'
-                                value={contactForm.phone}
-                                onChange={(e) => updateContactForm(e.target.value, "phone") }
-                            />
+                            <label>
+                                <span className='contact-form__input-description'>Imię*</span>
+                                <input
+                                    className='contact-form__input contact-form__input-name'
+                                    type="text"
+                                    placeholder='Imię*'
+                                    value={contactForm.name}
+                                    onChange={(e) => updateContactForm(e.target.value, "name") }
+                                    required
+                                />
+                            </label>
+                            <label>
+                                <span className='contact-form__input-description'>Email*</span>
+                                <input
+                                    className='contact-form__input contact-form__input-email'
+                                    type="email"
+                                    placeholder='E-mai*'
+                                    value={contactForm.email}
+                                    onChange={(e) => updateContactForm(e.target.value, "email") }
+                                    required
+                                />
+                            </label>
+                            <label>
+                                <span className='contact-form__input-description'>Numer telefonu</span>
+                                <input className='contact-form__input contact-form__input-phone'
+                                    type="number"
+                                    placeholder='Numer telefonu'
+                                    value={contactForm.phone}
+                                    onChange={(e) => updateContactForm(e.target.value, "phone") }
+                                />
+                            </label>
 
-                            <textarea
-                                className='contact-form__textarea'
-                                placeholder='Treść wiadomości *'
-                                value={contactForm.message}
-                                onChange={(e) => updateContactForm(e.target.value, "message") }
-                                required
-                                rows="4" cols="50">
-                            </textarea>
+                            <label>
+                                <span className='contact-form__textarea-description'>Wiadomość*</span>
+                                <textarea
+                                    className='contact-form__textarea'
+                                    placeholder='Treść wiadomości *'
+                                    value={contactForm.message}
+                                    onChange={(e) => updateContactForm(e.target.value, "message") }
+                                    required
+                                    rows="4" cols="50">
+                                </textarea>
+                            </label>
 
-                            <button className='contact-form__submit' type="submit">Wyślij zapytanie <i className="icon-right" /></button>
+                            <button className='submit-button' type="submit">Wyślij zapytanie <i className="icon-right" /></button>
 
                         </form>
                     </div>

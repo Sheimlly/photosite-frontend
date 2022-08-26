@@ -1,0 +1,38 @@
+.admin-login {
+    margin-top: 85px;
+}
+
+.login-form {
+    max-width: 80%;
+
+    label {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    &__input {
+        margin-right: 15px;
+
+        height: 50px;
+        width: 300px;
+
+        border: 1px solid #302f30;
+        border-radius: 10px;
+        padding: 10px;
+
+        &:focus {
+            outline: 0;
+            border: 2px solid #8F008F;
+        }
+
+        &-description {
+            display: block;
+            padding-bottom: 5px;
+            font-weight: 600;
+        }
+    }
+}
+
+.submit-button {
+    margin-top: 40px !important;
+}

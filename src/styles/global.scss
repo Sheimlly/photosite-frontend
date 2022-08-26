@@ -67,3 +67,28 @@ h2{
 .section-title {
     margin-bottom: 25px;
 }
+
+.submit-button {
+    margin-top: 25px;
+    width: 250px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #8F008F;
+    border: 0;
+    border-radius: 90px;
+    // padding: 10px 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+        margin-left: 10px;
+    }
+
+    &:hover{
+        opacity: 0.8;
+    }
+}
