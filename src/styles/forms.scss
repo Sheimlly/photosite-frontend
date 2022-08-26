@@ -1,0 +1,113 @@
+@import 'variables';
+
+.contact-form {
+    max-width: 80%;
+
+    &__input {
+        margin-right: 15px;
+
+        height: 50px;
+        width: 250px;
+
+        border: 1px solid $border-color;
+        border-radius: 10px;
+        padding: 10px;
+
+        &:focus {
+            outline: 0;
+            border: 2px solid $primary-color;
+        }
+
+        &-description {
+            display: block;
+            padding-bottom: 5px;
+            font-weight: 600;
+        }
+    }
+
+    &__textarea {
+        width: 780px;
+        margin-bottom: 10px;
+        border: 1px solid $border-color;
+        border-radius: 10px;
+        padding: 10px;
+
+        &:focus {
+            outline: 0;
+            border: 2px solid $primary-color;
+        }
+
+        &-description {
+            display: block;
+            margin-top: 20px;
+            padding-bottom: 5px;
+            font-weight: 600;
+        }
+    }
+}
+
+.login-form {
+    max-width: 80%;
+
+    label {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    &__input {
+        margin-right: 15px;
+
+        height: 50px;
+        width: 300px;
+
+        border: 1px solid $border-color;
+        border-radius: 10px;
+        padding: 10px;
+
+        &:focus {
+            outline: 0;
+            border: 2px solid $primary-color;
+        }
+
+        &-description {
+            display: block;
+            padding-bottom: 5px;
+            font-weight: 600;
+        }
+    }
+}
+
+.add_category-form {
+    label {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    &__input {
+        margin-right: 15px;
+
+        height: 50px;
+        width: 300px;
+
+        border: 1px solid #302f30;
+        border-radius: 10px;
+        padding: 10px;
+
+        &:focus {
+            outline: 0;
+            border: 2px solid $primary-color;
+        }
+
+        &[type='checkbox'] {
+            width: 25px;
+            height: 25px;
+        }
+
+        &-description {
+            display: block;
+            margin-top: 20px;
+            padding-bottom: 5px;
+            font-weight: 600;
+        }
+    }
+}

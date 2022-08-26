@@ -1,5 +1,4 @@
 import { removeAuthToken } from '../../constants/token'
-import { useNavigate } from "react-router-dom";
 
 const Panel = () => {
     const logout = () => {

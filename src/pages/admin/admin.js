@@ -2,7 +2,8 @@ import { React, useState } from "react";
 import axios from "axios";
 import { setAuthToken } from '../../constants/token'
 
-import '../../styles/admin.scss'
+import '../../styles/forms.scss'
+import '../../styles/admin/admin.scss'
 
 const Admin = () => {
     const [contactForm, setContactForm] = useState({

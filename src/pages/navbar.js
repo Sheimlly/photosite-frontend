@@ -13,9 +13,9 @@ const AdminNavbar = () => {
     <li className="dropdown">
       <button className="dropbtn">Admin</button>
       <ul className="dropdown-content">
-        <li><Link to="/admin-panel">Admin panel</Link></li>
-        <li><Link to="/admin-panel">Admin panel</Link></li>
-        <li><span onClick={handleLogout}>LogOut</span></li>
+        <li><Link to="/admin/panel">Admin panel</Link></li>
+        <li><Link to="/admin/categories">Kategorie</Link></li>
+        <li><span onClick={handleLogout}>Wyloguj się</span></li>
       </ul>
     </li>
   )

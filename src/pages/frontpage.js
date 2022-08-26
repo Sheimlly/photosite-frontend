@@ -5,7 +5,7 @@ import axios from "axios";
 import { API_URL } from "../constants";
 
 import '../styles/frontpage.scss'
-import '../styles/contact-form.scss'
+import '../styles/forms.scss'
 import "../fontello/css/fontello.css"
 
 import header_img from '../resources/images/header-portrait.png';
