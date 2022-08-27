@@ -1,13 +1,14 @@
 @import 'variables';
 
-header {
+.frontpage-header {
     background-color: #909090;
     padding-bottom: 0 !important;
 
-    @media (min-width: 768px) {
+    @media(min-width: 768px) {
         background: #f7f7f7;
     }
 }
+
 .header-container {
     // padding: 25px 0;
     display: flex;

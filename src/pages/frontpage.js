@@ -17,7 +17,7 @@ import ludz_z_kotem from '../resources/images/offer/ludz-z-kotem.jpg';
 const FrontpageHeader = () => {
     return(
         <>
-            <header>
+            <header className='frontpage-header'>
                 <div className="container header-container">
                     <div className='header-image__container'>
                         <img className='header-image' src={header_img} />
