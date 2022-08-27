@@ -1,15 +1,14 @@
 import Carousel from 'react-bootstrap/Carousel';
-import { React, useState } from "react";
-import axios from "axios";
-
-import { API_URL } from "../constants";
+import { React } from "react";
 
 import '../styles/frontpage.scss'
-import '../styles/forms.scss'
 import "../fontello/css/fontello.css"
 
+import ContactForm from './partials/contact-form';
+
 import header_img from '../resources/images/header-portrait.png';
-import about_me_img from '../resources/images/header-image.jpg';
+import about_me_img__desktop from '../resources/images/header-image.jpg';
+import about_me_img from '../resources/images/DSC_2249.jpg';
 
 import kot from '../resources/images/offer/kot.png';
 import ludz from '../resources/images/offer/ludz.png';
@@ -47,27 +46,21 @@ const FrontpageAboutMe = () => {
             <section id='about-me' className='about_me'>
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-6 about_me-text__container'>
+                        <div className='col-12 col-lg-6 about_me-text__container'>
                             <h2 className='section-title'>Czym się zajmuję?</h2>
 
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
-                            <p>Nazywam się Emilia i zajmuję się profesjonalnie fotografią kotów</p>
+                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique sollicitudin accumsan. Sed nisi mi, accumsan vel tempus vitae, ullamcorper a mi.
+                                Donec sed justo scelerisque, venenatis elit ac, maximus purus. Sed eu varius sem. Etiam mollis arcu at nulla molestie, eu ornare magna mollis. Integer pretium mattis lectus id auctor.
+                                Aliquam volutpat interdum fermentum. Integer pretium dui ac ante tristique consectetur. Duis vel pharetra leo. Cras at mattis risus, vitae ultrices magna. Ut egestas luctus rutrum.
+                                Praesent aliquet a urna ac tristique. Cras maximus gravida mauris, eu dapibus nibh ultrices ac. Donec turpis leo, euismod ut finibus vehicula, ultrices quis lorem.
+                                Praesent vitae dolor ac leo pharetra hendrerit ac quis metus. Proin vel quam vel leo rhoncus eleifend. Integer sollicitudin ligula id mauris eleifend posuere.
+                                Phasellus risus elit, ultricies a augue sed, tempor interdum lacus. Vivamus id laoreet lacus, aliquet euismod velit. Duis scelerisque rutrum arcu, ac pellentesque neque rhoncus nec.
+                                Nulla blandit justo et massa dignissim scelerisque.
+                            </p>
                         </div>
-                        <div className='col-6 about_me-img__container'>
-                            <img src={about_me_img} />
+                        <div className='col-12 col-lg-6 about_me-img__container'>
+                            <img className='d-none d-lg-block' src={about_me_img__desktop} />
+                            <img className='d-lg-none' src={about_me_img} />
                         </div>
                     </div>
                 </div>
@@ -81,10 +74,10 @@ const FrontpageOffer = () => {
         <>
             <section className='offer my-3'>
                 <div className='container'>
-                    <div className='row'>
-                        <h2 className='section-title'>Co oferuję?</h2>
+                    <h2 className='section-title'>Co oferuję?</h2>
+                    <div className='row justify-content-center justify-content-md-around justify-content-xl-between'>
 
-                        <div className='col-4 offer-block px-0'>
+                        <div className='col-12 col-md-6 col-lg-3 col-xl-4 offer-block px-0'>
                             <div className='offer-block__image'>
                                 <img src={kot} />
                             </div>
@@ -96,7 +89,7 @@ const FrontpageOffer = () => {
                             </div>
                         </div>
 
-                        <div className='col-4 offer-block px-0'>
+                        <div className='col-12 col-md-6 col-lg-3 col-xl-4 offer-block px-0'>
                             <div className='offer-block__image'>
                                 <img src={ludz} />
                             </div>
@@ -108,7 +101,7 @@ const FrontpageOffer = () => {
                             </div>
                         </div>
 
-                        <div className='col-4 offer-block px-0'>
+                        <div className='col-12 col-md-6 col-lg-3 col-xl-4 offer-block px-0'>
                             <div className='offer-block__image'>
                                 <img src={ludz_z_kotem} />
                             </div>
@@ -131,151 +124,39 @@ const FrontpageOffer = () => {
 const FrontpagePortfolio = () => {
     return(
         <>
-            <section className='portolio my-3'>
+            <section className='portfolio my-3'>
                 <div className='container'>
                     <div className='row justify-content-between'>
                         <h2 className='section-title'>Moje portfolio</h2>
 
                         <Carousel>
                             <Carousel.Item>
-                                <div className='row'>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-block w-100"} src={ludz} alt="First slide" />
-                                    </div>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-block w-100"} src={kot} alt="First slide" />
-                                    </div>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-inline-block"} src={ludz_z_kotem} alt="First slide" />
-                                        <img className={"d-inline-block"} src={ludz_z_kotem} alt="First slide" />
-                                    </div>
+                                <div className='portfolio__carousel-item'>
+                                    <img src={ludz} alt="First slide" />
+                                    <img className='d-none d-sm-block' src={kot} alt="First slide" />
+                                    <img className='d-none d-md-block' src={ludz_z_kotem} alt="First slide" />
+                                    <img className='d-none d-md-block' src={ludz_z_kotem} alt="First slide" />
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <div className='row'>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-inline-block"} src={ludz_z_kotem} alt="First slide" />
-                                        <img className={"d-inline-block"} src={ludz_z_kotem} alt="First slide" />
-                                    </div>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-block w-100"} src={ludz} alt="First slide" />
-                                    </div>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-block w-100"} src={kot} alt="First slide" />
-                                    </div>
+                                <div className='portfolio__carousel-item'>
+                                    <img src={ludz_z_kotem} alt="First slide" />
+                                    <img src={ludz_z_kotem} alt="First slide" />
+                                    <img className='d-none d-sm-block' src={ludz} alt="First slide" />
+                                    <img className='d-none d-md-block' src={kot} alt="First slide" />
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <div className='row'>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-block w-100"} src={kot} alt="First slide" />
-                                    </div>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-inline-block"} src={ludz_z_kotem} alt="First slide" />
-                                        <img className={"d-inline-block"} src={ludz_z_kotem} alt="First slide" />
-                                    </div>
-                                    <div className='col-4 portfolio__carousel-img'>
-                                        <img className={"d-block w-100"} src={ludz} alt="First slide" />
-                                    </div>
+                                <div className='portfolio__carousel-item'>
+                                    <img src={kot} alt="First slide" />
+                                    <img className='d-none d-sm-block' src={ludz_z_kotem} alt="First slide" />
+                                    <img className='d-none d-sm-block' src={ludz_z_kotem} alt="First slide" />
+                                    <img className='d-none d-md-block' src={ludz} alt="First slide" />
                                 </div>
                             </Carousel.Item>
                         </Carousel>
-                    </div>
-                </div>
-            </section>
-        </>
-    )
-}
 
-const ContactMe = () => {
-    const [contactForm, setContactForm] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        message: ""
-    });
-
-    const updateContactForm = (value, target) => {
-        setContactForm(previousValue => {
-            return {...previousValue, [target]: value }
-        })
-    }
-
-    const handleSubmit = (e) => {
-        var current = new Date();
-        var date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-        console.log(date);
-
-        e.preventDefault();
-        axios.post(`${API_URL}/messages/add/`, {
-            name: contactForm.name,
-            email: contactForm.email,
-            phone: contactForm.phone ? contactForm.phone : 0,
-            message: contactForm.message
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    };
-
-    return(
-        <>
-            <section className='contact-me my-3'>
-                <div className='container'>
-                    <div className='row justify-content-between'>
-                        <h2 className='section-title'>Skontaktuj się ze mną!</h2>
-
-                        <form onSubmit={handleSubmit} className="contact-form">
-                            <label>
-                                <span className='contact-form__input-description'>Imię*</span>
-                                <input
-                                    className='contact-form__input contact-form__input-name'
-                                    type="text"
-                                    placeholder='Imię*'
-                                    value={contactForm.name}
-                                    onChange={(e) => updateContactForm(e.target.value, "name") }
-                                    required
-                                />
-                            </label>
-                            <label>
-                                <span className='contact-form__input-description'>Email*</span>
-                                <input
-                                    className='contact-form__input contact-form__input-email'
-                                    type="email"
-                                    placeholder='E-mai*'
-                                    value={contactForm.email}
-                                    onChange={(e) => updateContactForm(e.target.value, "email") }
-                                    required
-                                />
-                            </label>
-                            <label>
-                                <span className='contact-form__input-description'>Numer telefonu</span>
-                                <input className='contact-form__input contact-form__input-phone'
-                                    type="number"
-                                    placeholder='Numer telefonu'
-                                    value={contactForm.phone}
-                                    onChange={(e) => updateContactForm(e.target.value, "phone") }
-                                />
-                            </label>
-
-                            <label>
-                                <span className='contact-form__textarea-description'>Wiadomość*</span>
-                                <textarea
-                                    className='contact-form__textarea'
-                                    placeholder='Treść wiadomości *'
-                                    value={contactForm.message}
-                                    onChange={(e) => updateContactForm(e.target.value, "message") }
-                                    required
-                                    rows="4" cols="50">
-                                </textarea>
-                            </label>
-
-                            <button className='submit-button' type="submit">Wyślij zapytanie <i className="icon-right" /></button>
-
-                        </form>
+                        {/* <a>Zobacz całe porfolio</a> */}
                     </div>
                 </div>
             </section>
@@ -290,7 +171,7 @@ const Frontpage = () => {
             <FrontpageAboutMe />
             <FrontpageOffer />
             <FrontpagePortfolio />
-            <ContactMe />
+            <ContactForm />
         </>
     )
 }

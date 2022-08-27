@@ -1,7 +1,12 @@
 @import 'variables';
 
 header {
-    background: #f7f7f7;
+    background-color: #909090;
+    padding-bottom: 0 !important;
+
+    @media (min-width: 768px) {
+        background: #f7f7f7;
+    }
 }
 .header-container {
     // padding: 25px 0;
@@ -10,10 +15,15 @@ header {
     .header-image__container {
         width: 40%;
         margin-top: auto;
+        display: none;
         
         .header-image {
             max-height: 425px;
             width: auto;
+        }
+
+        @media (min-width: 768px) {
+            display: block;
         }
     }
 
@@ -23,6 +33,11 @@ header {
         justify-content: center;
 
         padding: 50px 0 50px 100px;
+
+        background-image: url('../resources/images/header-portrait.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        color: #FFFFFF;
 
         .header-text {
             margin-bottom: 50px;
@@ -37,6 +52,11 @@ header {
                 font-weight: 500;
                 margin-bottom: 0;
             }
+        }
+        
+        @media (min-width: 768px) {
+            background-image: none;
+            color: #000000;
         }
     }
 }
@@ -55,13 +75,26 @@ header {
 
     &-img__container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
+
+        img {
+            margin-top: 25px;
+            max-width: 100%;
+        }
+
+        @media (min-width: 992px) {
+            justify-content: flex-end;
+            img {
+                margin-top: 0;
+            }
+        }
     }
 }
 
 .offer {
 
     &-block {
+        margin-bottom: 40px !important;
         display: flex;
         flex-direction: column;
         max-height: 500px;
@@ -124,13 +157,47 @@ header {
         margin-bottom: 25px;
     }
     
-    &__carousel-img {
-        display: flex;
-        justify-content: space-between;
+
+    &__carousel-item {
+        display: flex !important;
+        justify-content: space-around;
+
+        @media(min-width: 576px) {
+            justify-content: space-between;
+        }
 
         img {
-            height: 277px;
+            width: auto;
+            height: 250px;
             align-self: center;
+
+            @media(min-width: 400px) {
+                height: 300px;
+            }
+
+            @media(min-width: 480px) {
+                height: 350px;
+            }
+
+            @media(min-width: 576px) {
+                height: 175px;
+            }
+            
+            @media(min-width: 768px) {
+                height: 150px;
+            }
+
+            @media(min-width: 992px) {
+                height: 200px;
+            }
+
+            @media(min-width: 1200px) {
+                height: 250px;
+            }
+            @media(min-width: 1200px) {
+                height: 275px;
+            }
         }
+
     }
 }

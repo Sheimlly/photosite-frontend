@@ -5,12 +5,12 @@ import { API_URL } from '../../constants/index'
 import '../../styles/admin/categories.scss'
 
 const AdminCategories = () => {
+    const token = localStorage.getItem("token");
+
     const [categories, setCategories] = useState({data: []});
-    // const [categories_copy, setCategories_Copy] = useState({data: []});
     const [category, setCategory] = useState({
         name: "",
     });
-    const token = localStorage.getItem("token");
 
     const updateCategoryState = (value, target) => {
         setCategory(previousValue => {
@@ -28,6 +28,15 @@ const AdminCategories = () => {
         }
     };
 
+    const getCategories = () => {
+        axios.get(`${API_URL}/categories/`).then(res => {
+            const data = res.data
+            setCategories({ data: data });
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
     const addCategory = (e) => {
         e.preventDefault();
         axios.post(`${API_URL}/categories/add/`, {
@@ -40,7 +49,7 @@ const AdminCategories = () => {
          })
         .then(function (response) {
             console.log(response);
-            window.location.reload(false);
+            getCategories();
         })
         .catch(function (error) {
             console.log(error);
@@ -57,7 +66,7 @@ const AdminCategories = () => {
         })
         .then(function (response) {
             console.log(response);
-            window.location.reload(false);
+            getCategories();
         })
         .catch(function (error) {
             console.log(error);
@@ -83,7 +92,7 @@ const AdminCategories = () => {
         })
         .then(function (response) {
             console.log(response);
-            window.location.reload(false);
+            getCategories();
         })
         .catch(function (error) {
             console.log(error);
@@ -91,13 +100,7 @@ const AdminCategories = () => {
     }
 
     useEffect(() => {
-        axios.get(`${API_URL}/categories/`).then(res => {
-            const data = res.data
-            setCategories({ data: data });
-            // setCategories_Copy({ data: data });
-        }).catch(function (error) {
-            console.log(error);
-        });
+        getCategories();
     }, [])
 
     return(
