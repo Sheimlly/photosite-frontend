@@ -18,6 +18,7 @@ import Footer from "./pages/footer";
 import Admin from "./pages/admin/admin";
 import Panel from "./pages/admin/panel";
 import AdminCategories from "./pages/admin/categories";
+import AdminOffers from "./pages/admin/offers";
 
 // Styles
 import './styles/global.scss'
@@ -40,6 +41,7 @@ export default function App() {
             <Route index element={ token ? <Navigate to="/admin/panel" /> : <Admin />} />
             <Route path="panel" element={ token ? <Panel /> : <Navigate to="/admin" /> } />
             <Route path="categories" element={ token ? <AdminCategories /> : <Navigate to="/admin" /> } />
+            <Route path="offers" element={ token ? <AdminOffers /> : <Navigate to="/admin" /> } />
           </Route>
           <Route path="*" element={<NoPage />} />
         </Route>

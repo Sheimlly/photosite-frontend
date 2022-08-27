@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+import { errorLogout } from './error_logout'
 import { API_URL } from '../../constants/index'
 import '../../styles/admin/categories.scss'
 
@@ -33,7 +34,7 @@ const AdminCategories = () => {
             const data = res.data
             setCategories({ data: data });
         }).catch(function (error) {
-            console.log(error);
+            errorLogout(error);
         });
     }
 
@@ -52,7 +53,7 @@ const AdminCategories = () => {
             getCategories();
         })
         .catch(function (error) {
-            console.log(error);
+            errorLogout(error);
         });
     };
 
@@ -69,7 +70,7 @@ const AdminCategories = () => {
             getCategories();
         })
         .catch(function (error) {
-            console.log(error);
+            errorLogout(error);
         });
     }
 
@@ -95,7 +96,7 @@ const AdminCategories = () => {
             getCategories();
         })
         .catch(function (error) {
-            console.log(error);
+            errorLogout(error);
         });
     }
 
@@ -142,7 +143,7 @@ const AdminCategories = () => {
                         <div className="col-12 order-1 order-md-2 col-md-6 ps-md-5 mb-5 mb-md-0">
                             <h2>Dodaj kategorię</h2>
                             
-                            <form onSubmit={addCategory} className="add_category d-flex flex-column">
+                            <form onSubmit={addCategory} className="add_category-form d-flex flex-column">
                                 <label>
                                     <span className='add_category-form__input-description'>Nazwa*</span>
                                     <input
@@ -155,7 +156,7 @@ const AdminCategories = () => {
                                     />
                                 </label>
                                 <label>
-                                    <span className='add_category-form__input-description'>Czy aktywna?*</span>
+                                    <span className='add_category-form__input-description'>Czy aktywna?</span>
                                     <input
                                         id="add_category_checbox"
                                         className='add_category-form__input add_category-form__input-actuve'
