@@ -30,16 +30,50 @@ const Navbar = () => {
 
 
   window.addEventListener('scroll', () => {
-    if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
-      let currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        setNavbarTop(0);
-      } else {
-        setNavbarTop(-150);
+    if (window.innerWidth >= 992) {
+      if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+        let currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+          setNavbarTop(0);
+        } else {
+          setNavbarTop(-150);
+        }
+        setPrevScrollpos(currentScrollPos);
       }
-      setPrevScrollpos(currentScrollPos);
     }
   });
+
+
+  const removeClass = () => {
+    document.getElementById("hidding-navbar").className = "navbar";
+  }
+  const addEventListener = (el) => {
+    var links = el.querySelectorAll('li');
+
+    links.forEach(link => {
+      link.addEventListener('click', removeClass);
+    })
+  }
+
+  const removeEventListener = (el) => {
+    const links = el.querySelectorAll('li');
+
+    links.forEach(link => {
+      link.removeEventListener('click', removeClass);
+    })
+
+  }
+
+  const showItems = () => {
+    var nav = document.getElementById("hidding-navbar");
+    if (nav.className === "navbar") {
+      nav.className += " responsive";
+      addEventListener(nav);
+    } else {
+      nav.className = "navbar";
+      removeEventListener(nav);
+    }
+  }
 
   useEffect( () => {
     setNavbarTop(0);
@@ -49,11 +83,11 @@ const Navbar = () => {
     <>
       <nav className="navbar" id="hidding-navbar" style={{top: navbarTop}}>
         <div className="container">
-          <div className="row justify-content-between">
-            <div className="col-5">
+          <div className="row navbar-body justify-content-between">
+            <div className="col-6 col-lg-3 col-xl-5 logo">
               Fotograf ja, czy jakoś tak
             </div>
-            <ul className="col-7 px-0 d-flex justify-content-end">
+            <ul className="col-lg-9 col-xl-7 px-0 d-lg-flex justify-content-lg-end">
               <li>
                 <Link to="/">Strona główna</Link>
               </li>
@@ -71,6 +105,9 @@ const Navbar = () => {
               </li>
                 { token ? <AdminNavbar /> : null}
             </ul>
+            <button className="icon col-6 d-lg-none" onClick={showItems}>
+              <i className="icon-right" />
+            </button>
           </div>
         </div>
       </nav>
