@@ -1,5 +1,8 @@
 import Carousel from 'react-bootstrap/Carousel';
 import { React } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { API_URL } from '../constants/index'
 
 import '../styles/frontpage.scss'
 import "../fontello/css/fontello.css"
@@ -70,6 +73,33 @@ const FrontpageAboutMe = () => {
 }
 
 const FrontpageOffer = () => {
+    const token = localStorage.getItem("token");
+    const [offers, setOffers] = useState({data: []});
+
+    const getOffers = () => {
+        axios.get(`${API_URL}/offers/`,{
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+         }).then(res => {
+            var data = []
+            
+            res.data.forEach(offer => {
+                if (offer.active && offer.frontpage) {
+                    data.push(offer);
+                }
+            });
+            setOffers({ data: data });
+        }).catch(function (error) {
+            // errorLogout(error);
+            console.log(error);
+        });
+    }
+
+    useEffect(() => {
+        getOffers();
+    }, [])
+
     return(
         <>
             <section className='offer my-3'>
@@ -77,43 +107,24 @@ const FrontpageOffer = () => {
                     <h2 className='section-title'>Co oferuję?</h2>
                     <div className='row justify-content-center justify-content-md-around justify-content-xl-between'>
 
-                        <div className='col-12 col-md-6 col-lg-3 col-xl-4 offer-block px-0'>
-                            <div className='offer-block__image'>
-                                <img src={kot} />
-                            </div>
-                            <div className='offer-block__text'>
-                                <h3>Fotografia kotów</h3>
-                                <p>Stworzę idealne zdjęcie twojego kota.</p>
-                                <p>Tak jak chcesz!</p>
-                                <a href='' className='offer-block__text-portfolio'>Zobacz moje portfolio <i className="icon-right" /></a>
-                            </div>
-                        </div>
-
-                        <div className='col-12 col-md-6 col-lg-3 col-xl-4 offer-block px-0'>
-                            <div className='offer-block__image'>
-                                <img src={ludz} />
-                            </div>
-                            <div className='offer-block__text'>
-                                <h3>Kreatywny portret</h3>
-                                <p>Stworzę idealne zdjęcie ciebie z twoim kotem.</p>
-                                <p>Tak jak chcesz!</p>
-                                <a href='' className='offer-block__text-portfolio'>Zobacz moje portfolio <i className="icon-right" /></a>
-                            </div>
-                        </div>
-
-                        <div className='col-12 col-md-6 col-lg-3 col-xl-4 offer-block px-0'>
-                            <div className='offer-block__image'>
-                                <img src={ludz_z_kotem} />
-                            </div>
-                            <div className='offer-block__text'>
-                                <div>
-                                    <h3>Portret z kotem</h3>
-                                    <p>Stworzę idealne zdjęcie twojego kota.</p>
-                                    <p>Tak jak chcesz!</p>
+                    {
+                    offers.data
+                        .map(offo =>
+                            <div className='col-12 col-md-6 col-lg-3 col-xl-4 offer-block px-0'>
+                                <div className='offer-block__image'>
+                                    <img src={offo.photo} />
                                 </div>
-                                <a href='' className='offer-block__text-portfolio'>Zobacz moje portfolio <i className="icon-right offer-block__text-portfolio-arrow" /></a>
+                                <div className='offer-block__text'>
+                                    <h3>{offo.name}</h3>
+                                    <p>{offo.short_description}</p>
+                                    <p>Cena: {offo.price}</p>
+                                    <div className="d-flex justify-content-end">
+                                        <a href='' className='offer-block__text-portfolio'>Zobacz szczegóły <i className="icon-right" /></a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        )
+                    }
                     </div>
                 </div>
             </section>
