@@ -126,6 +126,9 @@ const FrontpageOffer = () => {
                         )
                     }
                     </div>
+                    <div className='d-flex justify-content-end'>
+                        <a className='offer__see-all'>Zobacz wszystkie oferty <i className="icon-right" /></a>
+                    </div>
                 </div>
             </section>
         </>
