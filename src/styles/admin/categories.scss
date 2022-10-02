@@ -7,8 +7,9 @@ header {
 .category-block {
     background: #f7f7f7;
     border-radius: 10px;
-    max-width: 300px;
-    padding: 30px auto;
+    // max-width: 300px;
+    width: 100%;
+    padding: 10px 15px;
 
     // margin-right: 12px;
     margin-left: 12px;
@@ -20,76 +21,11 @@ header {
     &__title {
         font-weight: 700;
     }
-
-    &__change-name {
-        input {
-            height: 30px;
-            width: 150px;
-            border: 1px solid $border-color;
-            border-radius: 10px;
-            font-size: 14px;
-            padding-left: 5px;
-
-            &:focus {
-                outline: 0;
-                border: 2px solid $primary-color;
-            }
-        }
-
-        button {
-            margin-left: 10px;
-            width: 75px;
-            background: $primary-color;
-            color: #FFFFFF;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-        }
-    }
-
-    .green-dot {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 10px;
-        background: green;
-    }
-    .red-dot {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 10px;
-        background: red;
-    }
     
-    .action-buttons {
-        margin-top: 40px;
-    }
-
-    .action-button {
-        border: 0;
-        border-radius: 10px;
-        background: $primary-color;
-        color: #FFFFFF;
-        width: 125px;
-        height: 30px;
-        font-weight: 600;
-    }
-
     .delete-button {
         background: transparent;
         border: 0;
         height: auto;
-    }
-
-    p {
-        display: inline;
-    }
-
-    .active-button {
-        display: inline-block !important;
-        width: 100px;
-        margin-left: 20px;
     }
 
     button:hover {

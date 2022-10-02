@@ -1,9 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import { errorLogout } from './error_logout'
+import { handleErrors } from '../handle_errors'
 import { API_URL } from '../../constants/index'
 import '../../styles/admin/offers.scss'
+
+const OfferDescription = ({descriptions, addDescription, deleteDescription}) => {
+    return (
+        <>
+            <div className="add-description" onClick={addDescription}>Dodaj podpunkt <i className="icon-right-small" /></div>
+            <ul>
+                {descriptions.map((description, index) => {
+                    return <li key={index}>{description.description} <i className="icon-cancel delete-description" onClick={() => {deleteDescription(description)}} /></li>;
+                })}
+            </ul>
+        </>
+      );
+    
+}
 
 const AdminOffers = () => {
     const token = localStorage.getItem("token");
@@ -15,12 +30,21 @@ const AdminOffers = () => {
         active: false,
         frontpage: false,
         photo: null,
-        short_description: "",
         description: ""
     });
+    const [description, setDescription] = useState({
+        description: ""
+    })
+    const [descriptions, setDescriptions] = useState([])
 
     const updateOfferState = (value, target) => {
         setOffer(previousValue => {
+            return {...previousValue, [target]: value }
+        })
+    }
+
+    const updateDescriptionState = (value, target) => {
+        setDescription(previousValue => {
             return {...previousValue, [target]: value }
         })
     }
@@ -35,8 +59,6 @@ const AdminOffers = () => {
         setOffer(previousValue => {
             return {...previousValue, photo: event.target.files[0] }
         })
-
-        console.log(offer.photo);
     }
 
     const getOffers = () => {
@@ -46,55 +68,77 @@ const AdminOffers = () => {
             }
          }).then(res => {
             const data = res.data
+            console.log(data);
             setOffers({ data: data });
         }).catch(function (error) {
-            errorLogout(error);
+            handleErrors(error);
         });
     }
 
     const addOffer = (e) => {
         e.preventDefault();
 
-        axios.post(`${API_URL}/offers/add/`, {
+        axios.post(`${API_URL}/offers/`, {
             name: offer.name,
             price: offer.price,
             active: document.getElementById("add_offer_checbox-active").checked ? true : false,
             frontpage: document.getElementById("add_offer_checbox-frontpage").checked ? true : false,
-            photo: offer.photo,
-            short_description: offer.short_description,
-            description: offer.description
+            descriptions: descriptions
         },{
             headers: {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': 'Token ' + token
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token
             }
          })
         .then(function (response) {
-            console.log(response);
-            getOffers();
+            const offer_id = response.data.offer_id;
+            axios.patch(`${API_URL}/offers/${offer_id}`, {
+                photo: offer.photo,
+            },{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Token ' + token
+                }
+            })
+            .then(function (res) {
+                console.log(res);
+                getOffers();
+            })
+            .catch(function (error) {
+                handleErrors(error);
+            });
         })
         .catch(function (error) {
-            // errorLogout(error);
-            console.log(error);
+            handleErrors(error);
         });
     };
 
     const deleteOffer = (offer_id) => {
-        axios.delete(`${API_URL}/offers/delete/${offer_id}`, {
+        axios.delete(`${API_URL}/offers/${offer_id}`, {
             headers: {
               'Authorization': 'Token ' + token
             }
-        }).then(res => {
-            console.log(res);
         })
         .then(function (response) {
             console.log(response);
             getOffers();
         })
         .catch(function (error) {
-            errorLogout(error);
-            // console.log(error);
+            handleErrors(error);
         });
+    }
+
+    const addDescription = () => {
+        if (description.description != "") {
+            setDescriptions((d) => [...d, description])
+        }
+    }
+    const deleteDescriptions = (value) => {
+        setDescriptions(current =>
+            current.filter(element => {
+                return element !== value
+            }),
+        );
     }
 
     useEffect(() => {
@@ -123,14 +167,19 @@ const AdminOffers = () => {
                                             </div>
                                             <div className='offer-block__text'>
                                                 <h3>{offo.name}</h3>
-                                                <p>{offo.short_description}</p>
+
+                                                <ul>
+                                                    {offo.descriptions.map(description =>
+                                                        <li>{description.description}</li>
+                                                    )}
+                                                </ul>
                                                 <p>Cena: {offo.price}</p>
 
                                                 <p><span className={offo.active ? 'green-dot' : 'red-dot'}></span> Aktywne: {offo.active ? 'Tak' : 'Nie'}</p>
                                                 <p><span className={offo.frontpage ? 'green-dot' : 'red-dot'}></span> Na stronie głównej: {offo.frontpage ? 'Tak' : 'Nie'}</p>
                                                 <div className="d-flex justify-content-between">
-                                                    <button className="delete-button" onClick={() => deleteOffer(offo.offer_id)} >Usuń</button>
-                                                    <a href='' className='offer-block__text-portfolio'>Edytuj <i className="icon-right" /></a>
+                                                    <button className="delete-button" onClick={() => deleteOffer(offo.offer_id)} >Usuń <i className="icon-cancel"/></button>
+                                                    <Link to={`/admin/offers/${offo.offer_id}`} className='offer-block__text-portfolio'>Edytuj <i className="icon-right-small" /></Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,11 +190,11 @@ const AdminOffers = () => {
                         <div className="col-12 order-1 order-md-2 col-md-4 ps-md-5 mb-5 mb-md-0">
                             <h2>Dodaj Ofertę</h2>
                             
-                            <form onSubmit={addOffer} className="add_offer-form d-flex flex-column">
+                            <form onSubmit={addOffer} className="add-form d-flex flex-column">
                                 <label>
-                                    <span className='add_offer-form__input-description'>Nazwa*</span>
+                                    <span className='add-form__input-description'>Nazwa*</span>
                                     <input
-                                        className='add_offer-form__input add_offer-form__input-name'
+                                        className='add-form__input add_offer-form__input-name'
                                         type="text"
                                         placeholder='Nazwa*'
                                         value={offer.name}
@@ -154,9 +203,9 @@ const AdminOffers = () => {
                                     />
                                 </label>
                                 <label>
-                                    <span className='add_offer-form__input-description'>Cena*</span>
+                                    <span className='add-form__input-description'>Cena*</span>
                                     <input
-                                        className='add_offer-form__input add_offer-form__input-price'
+                                        className='add-form__input add_offer-form__input-price'
                                         type="number"
                                         placeholder='Cena*'
                                         min="0"
@@ -167,27 +216,27 @@ const AdminOffers = () => {
                                 </label>
                                 <div className="d-flex">
                                     <label>
-                                        <span className='add_offer-form__input-description'>Czy aktywna?</span>
+                                        <span className='add-form__input-description'>Czy aktywna?</span>
                                         <input
                                             id="add_offer_checbox-active"
-                                            className='add_offer-form__input add_offer-form__input-active'
+                                            className='add-form__input add_offer-form__input-active'
                                             type="checkbox"
                                         />
                                     </label>
                                     <label className="ms-5">
-                                        <span className='add_offer-form__input-description'>Wyróżniona?</span>
+                                        <span className='add-form__input-description'>Wyróżniona?</span>
                                         <input
                                             id="add_offer_checbox-frontpage"
-                                            className='add_offer-form__input add_offer-form__input-frontpage'
+                                            className='add-form__input add_offer-form__input-frontpage'
                                             type="checkbox"
                                         />
                                     </label>
                                 </div>
                                 <label>
-                                    <span className='add_offer-form__input-description'>Zdjęcie ofery*</span>
+                                    <span className='add-form__input-description'>Zdjęcie ofery*</span>
                                     <input
                                         id="add_offer_input-file"
-                                        className='add_offer-form__input add_offer-form__input-upload'
+                                        className='add-form__input add-form__input-upload'
                                         type="file"
                                         name="filename"
                                         accept="image/jpeg,image/png,image/gif"
@@ -195,33 +244,18 @@ const AdminOffers = () => {
                                         required
                                     />
                                 </label>
-
                                 <label>
-                                    <span className='add_offer-form__input-description'>Krótki opis*</span>
+                                    <span className='add-form__input-description'>Opis*</span>
                                     <input
-                                        className='add_offer-form__input add_offer-form__input-short_description'
+                                        className='add-form__input'
                                         type="text"
-                                        placeholder='Krótki opis*'
-                                        value={offer.short_description}
-                                        onChange={(e) => updateOfferState(e.target.value, "short_description") }
+                                        onChange={(e) => updateDescriptionState(e.target.value, "description") }
                                         required
                                     />
+                                    <OfferDescription descriptions={descriptions} addDescription={addDescription} deleteDescription={deleteDescriptions} />
                                 </label>
 
-                                <label>
-                                    <span className='add_offer-form__input-description'>Opis*</span>
-                                    <textarea
-                                        className='add_offer-form__textarea add_offer-form__textarea-description'
-                                        type="text"
-                                        placeholder='Opis*'
-                                        value={offer.description}
-                                        onChange={(e) => updateOfferState(e.target.value, "description") }
-                                        rows="4" cols="40"
-                                        required
-                                    />
-                                </label>
-
-                                <button className='submit-button' type="submit">Dodaj kategorię <i className="icon-right" /></button>
+                                <button className='submit-button' type="submit">Dodaj oferte <i className="icon-right-small" /></button>
 
                             </form>
                         </div>

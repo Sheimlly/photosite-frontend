@@ -1,0 +1,67 @@
+@import '../variables';
+
+header {
+    padding-bottom: 10px !important;
+}
+
+.steps {
+    margin-top: 25px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+
+    &__add {
+        color: $primary-color;
+        cursor: pointer;
+    }
+    
+    .delete-step {
+        cursor: pointer;
+
+        i {
+            color: red;
+        }
+    }
+
+    &__container {
+        margin-top: 25px;
+
+        &--block {
+            margin-top: 15px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    }
+}
+
+// Prepairing details
+
+.prepairing_details-block {
+    width: 500px;
+    height: auto;
+    // max-height: 100px;
+    padding: 10px;
+
+    border-radius: 10px;
+    background: #f7f7f7;
+    -webkit-box-shadow: 21px 13px 28px 0px rgba(233, 233, 233, 1);
+    -moz-box-shadow: 21px 13px 28px 0px rgba(233, 233, 233, 1);
+    box-shadow: 21px 13px 28px 0px rgba(233, 233, 233, 1);
+
+    &__image {
+        max-height: 200px;
+    }
+    &__title {
+        margin-top: 10px;
+    }
+
+    &__step-block {
+        padding-top: 10px;
+        margin: 0 10px;
+        border-top: 1px solid green;
+        &__image {
+            max-height: 125px;
+        }
+    }
+}

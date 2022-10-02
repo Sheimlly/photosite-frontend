@@ -8,7 +8,7 @@ const ContactForm = () => {
     const [contactForm, setContactForm] = useState({
         name: "",
         email: "",
-        phone: "",
+        phone: null,
         message: ""
     });
 
@@ -45,7 +45,10 @@ const ContactForm = () => {
                     <div className='row justify-content-between'>
                         <h2 className='section-title'>Skontaktuj się ze mną!</h2>
 
+                        <div>Jakieś socjale</div>
+
                         <form onSubmit={handleSubmit} className="contact-form">
+                            <h3>Lub przez formularz kontaktowy</h3>
                             <label>
                                 <span className='contact-form__input-description'>Imię*</span>
                                 <input
@@ -73,6 +76,8 @@ const ContactForm = () => {
                                 <input className='contact-form__input contact-form__input-phone'
                                     type="number"
                                     placeholder='Numer telefonu'
+                                    min="0"
+                                    max="999999999"
                                     value={contactForm.phone}
                                     onChange={(e) => updateContactForm(e.target.value, "phone") }
                                 />
@@ -90,7 +95,7 @@ const ContactForm = () => {
                                 </textarea>
                             </label>
 
-                            <button className='submit-button' type="submit">Wyślij zapytanie <i className="icon-right" /></button>
+                            <button className='submit-button' type="submit">Wyślij zapytanie <i className="icon-right-small" /></button>
 
                         </form>
                     </div>

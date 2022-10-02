@@ -1,9 +1,14 @@
+import ContactForm from './partials/contact-form';
+
 const Contact = () => {
     return(
         <>
             <header>
-                <h1>Kontakt</h1>
+                <div className='container'>
+                    <h1>Kontakt</h1>
+                </div>
             </header>
+            <ContactForm />
         </>
     )
 }

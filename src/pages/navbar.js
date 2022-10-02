@@ -14,6 +14,7 @@ const AdminNavbar = () => {
       <button className="dropbtn">Admin</button>
       <ul className="dropdown-content">
         <li><Link to="/admin/panel">Admin panel</Link></li>
+        <li><Link to="/admin/messages">Wiadomości</Link></li>
         <li><Link to="/admin/categories">Kategorie</Link></li>
         <li><Link to="/admin/offers">Oferty</Link></li>
         <li><span onClick={handleLogout}>Wyloguj się</span></li>
@@ -106,7 +107,7 @@ const Navbar = () => {
                 { token ? <AdminNavbar /> : null}
             </ul>
             <button className="icon col-6 d-lg-none" onClick={showItems}>
-              <i className="icon-right" />
+              <i className="icon-right-small" />
             </button>
           </div>
         </div>

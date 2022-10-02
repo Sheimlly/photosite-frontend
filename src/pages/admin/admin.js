@@ -67,7 +67,7 @@ const Admin = () => {
                             />
                         </label>
 
-                        <button className='submit-button' type="submit">Zaloguj się <i className="icon-right" /></button>
+                        <button className='submit-button' type="submit">Zaloguj się <i className="icon-right-small" /></button>
 
                     </form>
                 </div>

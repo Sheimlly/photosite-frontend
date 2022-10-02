@@ -4,6 +4,15 @@ header {
     padding-bottom: 10px !important;
 }
 
+.add-description {
+    color: $primary-color;
+    cursor: pointer;
+}
+
+.delete-description {
+    color: red;
+    cursor: pointer;
+}
 
 .offer-block {
     margin-bottom: 40px !important;
@@ -83,6 +92,10 @@ header {
 
         &:hover {
             opacity: 0.8;
+        }
+
+        i {
+            color: red;
         }
     }
 }
